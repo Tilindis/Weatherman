@@ -10,8 +10,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import com.peak.weatherman.feature.WeatherViewModel
 import org.jetbrains.compose.resources.painterResource
 import org.jetbrains.compose.ui.tooling.preview.Preview
+import org.koin.compose.KoinContext
+import org.koin.compose.viewmodel.koinViewModel
 
 import weatherman.composeapp.generated.resources.Res
 import weatherman.composeapp.generated.resources.compose_multiplatform
@@ -20,16 +26,25 @@ import weatherman.composeapp.generated.resources.compose_multiplatform
 @Preview
 fun App() {
     MaterialTheme {
-        var showContent by remember { mutableStateOf(false) }
-        Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-            Button(onClick = { showContent = !showContent }) {
-                Text("Click me!")
-            }
-            AnimatedVisibility(showContent) {
-                val greeting = remember { Greeting().greet() }
-                Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                    Image(painterResource(Res.drawable.compose_multiplatform), null)
-                    Text("Compose: $greeting")
+        KoinContext {
+            NavHost(
+                navController = rememberNavController(),
+                startDestination = "home"
+            ) {
+                composable(route = "home") {
+                    val viewModel = koinViewModel<WeatherViewModel>()
+                    var showContent by remember { mutableStateOf(false) }
+                    Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                        Button(onClick = { showContent = !showContent }) {
+                            Text("Click me!")
+                        }
+                        AnimatedVisibility(showContent) {
+                            Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
+                                Image(painterResource(Res.drawable.compose_multiplatform), null)
+                                Text("Compose: ${viewModel.getText()}")
+                            }
+                        }
+                    }
                 }
             }
         }
