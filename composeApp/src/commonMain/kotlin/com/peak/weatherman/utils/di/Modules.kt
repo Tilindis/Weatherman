@@ -2,6 +2,8 @@ package com.peak.weatherman.utils.di
 
 import com.peak.WeathermanDatabase
 import com.peak.weatherman.feature.WeatherViewModel
+import com.peak.weatherman.utils.api.WeatherApi
+import com.peak.weatherman.utils.api.WeatherApiImpl
 import com.peak.weatherman.utils.database.LocalDatabase
 import com.peak.weatherman.utils.database.LocalDatabaseImpl
 import com.peak.weatherman.utils.factory.DatabaseDriverFactory
@@ -19,6 +21,7 @@ val sharedModule = module {
     single<WeathermanDatabase> {
         get<DatabaseDriverFactory>().createWeathermanDatabase()
     }
+    singleOf(::WeatherApiImpl).bind<WeatherApi>()
     singleOf(::LocalDatabaseImpl).bind<LocalDatabase>()
     singleOf(::CheckRepoImpl).bind<CheckRepo>()
     viewModelOf(::WeatherViewModel)
