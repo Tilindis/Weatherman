@@ -1,12 +1,11 @@
 package com.peak.weatherman.utils.database
 
+import com.peak.WeathermanDatabase
 import com.peak.weatherman.utils.domain.Weather
-import com.peak.weatherman.utils.factory.DatabaseDriverFactory
 
 class LocalDatabaseImpl(
-    private val databaseDriverFactory: DatabaseDriverFactory
+    private val database: WeathermanDatabase,
 ): LocalDatabase {
-    private val database = databaseDriverFactory.createWeathermanDatabase()
     private val query = database.weathermanDatabaseQueries
 
     // asFlow latter
