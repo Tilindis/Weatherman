@@ -1,0 +1,21 @@
+CREATE TABLE WeathermanTable (
+    cityId TEXT NOT NULL,
+    time TEXT NOT NULL,
+    interval TEXT NOT NULL,
+    temperature TEXT NOT NULL,
+    windspeed TEXT NOT NULL,
+    winddirection TEXT NOT NULL,
+    is_day TEXT NOT NULL,
+    weathercode TEXT NOT NULL
+);
+
+getWeathermanData:
+SELECT WeathermanTable.*
+FROM WeathermanTable;
+
+insertWeathermanData:
+INSERT INTO WeathermanTable(cityId, time, interval, temperature, windspeed, winddirection, is_day, weathercode)
+VALUES (?, ?, ?, ?, ?, ?, ?,?);
+
+removeAllWeathermanData:
+DELETE FROM WeathermanTable;
