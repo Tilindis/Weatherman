@@ -1,0 +1,20 @@
+package com.peak.weatherman.utils.di
+
+import com.peak.weatherman.feature.WeatherViewModel
+import com.peak.weatherman.utils.database.LocalDatabase
+import com.peak.weatherman.utils.database.LocalDatabaseImpl
+import com.peak.weatherman.utils.repository.CheckRepo
+import com.peak.weatherman.utils.repository.CheckRepoImpl
+import org.koin.core.module.Module
+import org.koin.core.module.dsl.singleOf
+import org.koin.core.module.dsl.viewModelOf
+import org.koin.dsl.bind
+import org.koin.dsl.module
+
+expect val platformModule: Module
+
+val sharedModule = module {
+    singleOf(::LocalDatabaseImpl).bind<LocalDatabase>()
+    singleOf(::CheckRepoImpl).bind<CheckRepo>()
+    viewModelOf(::WeatherViewModel)
+}
