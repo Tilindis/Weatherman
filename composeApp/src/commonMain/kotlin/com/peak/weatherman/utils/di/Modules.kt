@@ -2,6 +2,7 @@ package com.peak.weatherman.utils.di
 
 import com.peak.WeathermanDatabase
 import com.peak.weatherman.feature.WeatherViewModel
+import com.peak.weatherman.feature.main.MainViewModel
 import com.peak.weatherman.feature.search.SearchViewModel
 import com.peak.weatherman.utils.api.NominatimOpenstreetMapApi
 import com.peak.weatherman.utils.api.NominatimOpenstreetMapApiImpl
@@ -31,6 +32,7 @@ val sharedModule = module {
     singleOf(::LocalDatabaseImpl).bind<LocalDatabase>()
     singleOf(::SearchRepositoryImpl).bind<SearchRepository>()
     singleOf(::CheckRepoImpl).bind<CheckRepo>()
+    viewModelOf(::MainViewModel)
     viewModelOf(::SearchViewModel)
     viewModelOf(::WeatherViewModel)
 }
