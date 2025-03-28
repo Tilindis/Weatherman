@@ -7,4 +7,5 @@ interface CheckRepo {
     fun getWeathermanData(): List<Weather>
     fun insertWeathermanData(data: List<Weather>)
     fun removeAllWeathermanData()
+    suspend fun getWeather()
 }
