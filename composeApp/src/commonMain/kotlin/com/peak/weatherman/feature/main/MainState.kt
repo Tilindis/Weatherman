@@ -1,5 +1,7 @@
 package com.peak.weatherman.feature.main
 
+import com.peak.weatherman.utils.entity.LocationEntity
+
 data class MainState(
-    val list: List<String> = emptyList(),
+    val locations: List<LocationEntity> = emptyList(),
 )
