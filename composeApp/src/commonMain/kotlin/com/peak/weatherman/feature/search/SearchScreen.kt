@@ -26,11 +26,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
+import com.peak.weatherman.utils.navigation.Screen
 import com.peak.weatherman.utils.response.CitySuggestion
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
-fun SearchScreen() {
+fun SearchScreen(
+    navController: NavController,
+) {
     val viewModel = koinViewModel<SearchViewModel>()
     val state = viewModel.state.collectAsState().value
 
@@ -56,7 +60,7 @@ fun SearchScreen() {
                 )
 
                 TextButton(
-                    onClick = {  }, // onCancel()
+                    onClick = { popBackStack(navController) },
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(text = "Cancel")
@@ -78,7 +82,8 @@ fun SearchScreen() {
 
         items(state.cities) { city ->
             CityItem(city) {
-                // Add on Click
+                viewModel.loadWeather(it.first, it.second)
+                navigateTo(navController, Screen.Main.route)
             }
         }
     }
@@ -130,10 +135,23 @@ fun CityItem(
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClick(Pair(city.lon ?: 0.0, city.lat ?: 0.0)) },
+            .clickable { onClick(Pair(city.lat ?: 0.0, city.lon ?: 0.0)) },
         horizontalAlignment = Alignment.Start
     ) {
         Text(text = city.name ?: "")
         Text(text = city.country ?: "")
     }
+}
+
+private fun navigateTo(
+    navController: NavController,
+    route: String,
+) {
+    navController.navigate(route)
+}
+
+private fun popBackStack(
+    navController: NavController,
+) {
+    navController.popBackStack()
 }

@@ -28,7 +28,6 @@ class NominatimOpenstreetMapApiImpl: NominatimOpenstreetMapApi {
 
     override suspend fun searchCities(
         query: String,
-        limit: Int,
     ): Flow<List<CitySuggestion>> = flow {
         runCatching {
             val results: List<NominatimResult> =

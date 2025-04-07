@@ -2,6 +2,7 @@ package com.peak.weatherman.utils.di
 
 import com.peak.WeathermanDatabase
 import com.peak.weatherman.feature.WeatherViewModel
+import com.peak.weatherman.feature.main.MainViewModel
 import com.peak.weatherman.feature.search.SearchViewModel
 import com.peak.weatherman.utils.api.NominatimOpenstreetMapApi
 import com.peak.weatherman.utils.api.NominatimOpenstreetMapApiImpl
@@ -12,6 +13,8 @@ import com.peak.weatherman.utils.database.LocalDatabaseImpl
 import com.peak.weatherman.utils.factory.DatabaseDriverFactory
 import com.peak.weatherman.utils.repository.CheckRepo
 import com.peak.weatherman.utils.repository.CheckRepoImpl
+import com.peak.weatherman.utils.repository.MainRepository
+import com.peak.weatherman.utils.repository.MainRepositoryImpl
 import com.peak.weatherman.utils.repository.SearchRepository
 import com.peak.weatherman.utils.repository.SearchRepositoryImpl
 import org.koin.core.module.Module
@@ -31,6 +34,8 @@ val sharedModule = module {
     singleOf(::LocalDatabaseImpl).bind<LocalDatabase>()
     singleOf(::SearchRepositoryImpl).bind<SearchRepository>()
     singleOf(::CheckRepoImpl).bind<CheckRepo>()
+    singleOf(::MainRepositoryImpl).bind<MainRepository>()
+    viewModelOf(::MainViewModel)
     viewModelOf(::SearchViewModel)
     viewModelOf(::WeatherViewModel)
 }

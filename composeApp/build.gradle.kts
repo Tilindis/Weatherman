@@ -56,6 +56,7 @@ kotlin {
 
             implementation(libs.bundles.ktor)
             implementation(libs.sqldelight.runtime)
+            implementation(libs.sqldelight.coroutines.extensions)
         }
 
         nativeMain.dependencies {

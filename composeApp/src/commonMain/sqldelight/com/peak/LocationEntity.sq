@@ -1,0 +1,20 @@
+CREATE TABLE IF NOT EXISTS locationEntity (
+  timezone TEXT NOT NULL PRIMARY KEY,
+  latitude REAL NOT NULL,
+  longitude REAL NOT NULL,
+  generationTimeMs Real NOT NULL,
+  utcOffsetSeconds INTEGER NOT NULL,
+  timezoneAbbreviation TEXT NOT NULL,
+  elevation REAL NOT NULL
+);
+
+getLocations:
+SELECT locationEntity.*
+FROM locationEntity;
+
+insertLocation:
+INSERT OR REPLACE INTO locationEntity(timezone, latitude, longitude, generationTimeMs, utcOffsetSeconds, timezoneAbbreviation, elevation)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+
+removeAllLocations:
+DELETE FROM locationEntity;

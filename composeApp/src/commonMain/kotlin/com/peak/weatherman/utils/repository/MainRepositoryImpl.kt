@@ -1,21 +1,15 @@
 package com.peak.weatherman.utils.repository
 
-import com.peak.weatherman.utils.api.NominatimOpenstreetMapApi
 import com.peak.weatherman.utils.api.WeatherApi
 import com.peak.weatherman.utils.database.LocalDatabase
+import com.peak.weatherman.utils.entity.LocationEntity
 import com.peak.weatherman.utils.mapper.toLocationEntity
-import com.peak.weatherman.utils.response.CitySuggestion
 import kotlinx.coroutines.flow.Flow
 
-class SearchRepositoryImpl(
-    private val api: NominatimOpenstreetMapApi,
+class MainRepositoryImpl(
     private val weatherApi: WeatherApi,
     private val localDatabase: LocalDatabase,
-) : SearchRepository {
-    override suspend fun searchCities(query: String): Flow<List<CitySuggestion>> {
-        return api.searchCities(query)
-    }
-
+): MainRepository {
     override suspend fun loadWeather(latitude: Double, longitude: Double) {
         weatherApi.requestWeather(
             latitude = latitude,
@@ -27,7 +21,7 @@ class SearchRepositoryImpl(
         }
     }
 
-    override fun close() {
-        api.close()
+    override suspend fun getLocations(): Flow<List<LocationEntity>> {
+        return localDatabase.getLocations()
     }
 }
