@@ -14,11 +14,17 @@ class SearchViewModel(
     private val _state = MutableStateFlow(SearchState())
     val state = _state.asStateFlow()
 
-    fun searchCities(query: String) {
+    private fun searchCities(query: String) {
         viewModelScope.launch {
-            searchRepository.searchCities(query, 5).collect {
+            searchRepository.searchCities(query).collect {
                 _state.update { state -> state.copy(cities = it) }
             }
+        }
+    }
+
+    fun loadWeather(latitude: Double, longitude: Double) {
+        viewModelScope.launch {
+            searchRepository.loadWeather(latitude, longitude)
         }
     }
 
@@ -29,5 +35,6 @@ class SearchViewModel(
 
     fun clearCityName() {
         _state.update { it.copy(cityName = "") }
+        searchCities("")
     }
 }
