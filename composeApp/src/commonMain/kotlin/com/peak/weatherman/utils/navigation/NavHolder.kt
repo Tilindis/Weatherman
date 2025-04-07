@@ -20,12 +20,14 @@ fun NavHolder() {
                 modifier = Modifier.fillMaxSize(),
                 color = MaterialTheme.colors.background
             ) {
+                val navController = rememberNavController()
+
                 NavHost(
-                    navController = rememberNavController(),
+                    navController = navController,
                     startDestination = Screen.Main.route
                 ) {
-                    composable(Screen.Main.route) { MainScreen() }
-                    composable(Screen.Search.route) { SearchScreen() }
+                    composable(Screen.Main.route) { MainScreen(navController) }
+                    composable(Screen.Search.route) { SearchScreen(navController) }
                 }
             }
         }
